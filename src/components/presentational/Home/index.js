@@ -80,7 +80,7 @@ class Home extends React.Component {
 
         <BottomSheet
           ref={this.bottomSheetRef}
-          snapPoints={['95%', '40%', '18%']}
+          snapPoints={['95%', '50%', '18%']}
           initialSnap={1}
           renderContent={this.renderInner}
           renderHeader={this.renderHeader}

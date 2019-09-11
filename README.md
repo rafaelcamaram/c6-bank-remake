@@ -20,6 +20,6 @@ Coming soon.
 
 ## Authors
 
-Carbon is a project by:
+C6 Bank Remake is a project by:
 
 [<img src="https://avatars1.githubusercontent.com/u/9087886?v=4" width="100px;"/><br /><sub><b>Rafael Câmara</b></sub>](http://www.rafaelcamaram.com/)<br />[💻](https://github.com/dawnlabs/carbon/commits?author=rafaelcamaram 'Code')

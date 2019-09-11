@@ -7,8 +7,7 @@ This is a C6 Bank app remake project. But it's important to note that it has no 
 This is just a study project and to acknowledge the good work done by the C6 Bank team.
 
 ## Example
-
-![Preview App](./readme_assets/preview.png)
+<img src="./readme_assets/preview.png" width="200">
 
 ## Usage
 

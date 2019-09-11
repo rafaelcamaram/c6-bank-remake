@@ -1,14 +1,11 @@
 import React from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {Image, Text, TouchableOpacity, View} from 'react-native';
 import styled from 'styled-components';
 import BottomSheet from 'reanimated-bottom-sheet';
 
 /* Config - imports */
 import COLORS from '../../../config/colors';
 import SPACING from '../../../config/spacing';
-
-/* Components - imports */
-import Row from '../../core/Row';
 
 /* Mock - imports */
 import actionsList from './actionsList';
@@ -27,8 +24,16 @@ class Home extends React.Component {
           return (
             <TouchableActionItem
               key={index}
+              activeOpacity={1}
               isLastItem={index === actionsList.length - 1}
               onPress={item.onPress}>
+              {item.icon ? (
+                <Image source={item.icon} />
+              ) : (
+                <OtherIconView>
+                  <OtherIconText>+</OtherIconText>
+                </OtherIconView>
+              )}
               <ActionItemLabel>{item.label}</ActionItemLabel>
             </TouchableActionItem>
           );
@@ -131,7 +136,7 @@ const BottomSheetScrollView = styled.ScrollView`
 `;
 
 const ActionsScrollView = styled.ScrollView`
-  margin-top: 15;
+  margin-top: ${SPACING.small};
   margin-left: -${SPACING.huge};
 
   padding-left: ${SPACING.huge};
@@ -143,7 +148,11 @@ const TouchableActionItem = styled.TouchableOpacity`
   width: 100;
   aspect-ratio: 1;
 
-  background-color: #ededed;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #fbfbfb;
+  border-radius: 8;
 
   padding-left: ${SPACING.default};
   padding-right: ${SPACING.default};
@@ -151,14 +160,12 @@ const TouchableActionItem = styled.TouchableOpacity`
   padding-bottom: ${SPACING.default};
 
   margin-right: ${props => (props.isLastItem ? SPACING.huge : SPACING.medium)};
-
-  align-items: flex-end;
-  align-items: center;
 `;
 
 const ActionItemLabel = styled.Text`
   font-size: 11;
   color: #636363;
+  margin-top: ${SPACING.default};
 `;
 
 const WelcomeMessageContainer = styled.View`
@@ -208,4 +215,19 @@ const HomeContainer = styled.View`
   background-color: ${COLORS.primaryBlack};
 `;
 
+const OtherIconView = styled.View`
+  height: 41;
+  width: 41;
+
+  background-color: ${COLORS.primary};
+  border-radius: 8;
+
+  justify-content: center;
+  align-items: center;
+`;
+
+const OtherIconText = styled.Text`
+  color: ${COLORS.white};
+  font-size: 28;
+`;
 export default Home;

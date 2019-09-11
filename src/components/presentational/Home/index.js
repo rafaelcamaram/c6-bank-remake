@@ -1,43 +1,27 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import styled from 'styled-components';
 import BottomSheet from 'reanimated-bottom-sheet';
+
+/* Config - imports */
 import COLORS from '../../../config/colors';
 import SPACING from '../../../config/spacing';
 
-const actionsList = [
-  {
-    label: 'VER EXTRATO',
-    onPress: () => {},
-  },
-  {
-    label: 'PAGAR',
-    onPress: () => {},
-  },
-  {
-    label: 'TRANSFERIR',
-    onPress: () => {},
-  },
-  {
-    label: 'KICK',
-    onPress: () => {},
-  },
-  {
-    label: 'CHAT',
-    onPress: () => {},
-  },
-  {
-    label: 'OUTROS',
-    onPress: () => {},
-  },
-];
+/* Components - imports */
+import Row from '../../core/Row';
+
+/* Mock - imports */
+import actionsList from './actionsList';
+import BalanceWidget from '../BalanceWidget';
 
 class Home extends React.Component {
+  state = {
+    shouldDisplayBalance: false,
+  };
+
   renderInner = () => (
-    <BottomSheetContent>
-      <BalanceContainer>
-        <Text>Saldo</Text>
-      </BalanceContainer>
+    <BottomSheetScrollView>
+      <BalanceWidget />
       <ActionsScrollView horizontal showsHorizontalScrollIndicator={false}>
         {actionsList.map((item, index) => {
           return (
@@ -50,49 +34,29 @@ class Home extends React.Component {
           );
         })}
       </ActionsScrollView>
-      <Text>Sample text</Text>
-      <Text>Sample text</Text>
-      <Text>Sample text</Text>
-      <Text>Sample text</Text>
-      <Text>Sample text</Text>
-      <Text>Sample text</Text>
-      <Text>Sample text</Text>
-      <Text>Sample text</Text>
-      <Text>Sample text</Text>
-      <Text>Sample text</Text>
-      <Text>Sample text</Text>
-      <Text>Sample text</Text>
-      <Text>Sample text</Text>
-      <Text>Sample text</Text>
-      <Text>Sample text</Text>
-      <Text>Sample text</Text>
-      <Text>Sample text</Text>
-      <Text>Sample text</Text>
-      <Text>Sample text</Text>
-      <Text>Sample text</Text>
-      <Text>Sample text</Text>
-      <Text>Sample text</Text>
-      <Text>Sample text</Text>
-      <Text>Sample text</Text>
-      <Text>Sample text</Text>
-      <Text>Sample text</Text>
-      <Text>Sample text</Text>
-    </BottomSheetContent>
+    </BottomSheetScrollView>
   );
 
   renderHeader = () => (
-    <React.Fragment>
+    <TouchableOpacity
+      activeOpacity={1}
+      onPress={() => {
+        this.bottomSheetRef.current.snapTo(1);
+      }}>
       <WelcomeMessageContainer>
         <View>
           <WelcomeMessageText>Boa noite</WelcomeMessageText>
           <WelcomeMessageName>Rafael</WelcomeMessageName>
         </View>
+        <ProfileImageView>
+          <ProfileLetterText>R</ProfileLetterText>
+        </ProfileImageView>
       </WelcomeMessageContainer>
 
-      <BottomSheetHeader>
-        <BottomSheetNotch />
-      </BottomSheetHeader>
-    </React.Fragment>
+      <BottomSheetHeaderView>
+        <BottomSheetNotchView />
+      </BottomSheetHeaderView>
+    </TouchableOpacity>
   );
 
   bottomSheetRef = React.createRef();
@@ -100,7 +64,7 @@ class Home extends React.Component {
   render() {
     return (
       <HomeContainer>
-        <C6BankLogo
+        <C6BankImage
           source={require('../../../assets/c6bank.png')}
           resizeMode="contain"
         />
@@ -121,7 +85,7 @@ class Home extends React.Component {
   }
 }
 
-const C6BankLogo = styled.Image`
+const C6BankImage = styled.Image`
   width: 40%;
   margin-top: 10%;
 `;
@@ -136,7 +100,7 @@ const BackgroundPatternImage = styled.Image`
   z-index: 1;
 `;
 
-const BottomSheetNotch = styled.View`
+const BottomSheetNotchView = styled.View`
   width: 40;
   height: 5;
 
@@ -144,7 +108,7 @@ const BottomSheetNotch = styled.View`
   background-color: ${COLORS.secondaryGray};
 `;
 
-const BottomSheetHeader = styled.View`
+const BottomSheetHeaderView = styled.View`
   height: 40;
   justify-content: center;
   align-items: center;
@@ -155,7 +119,7 @@ const BottomSheetHeader = styled.View`
   border-top-right-radius: 16;
 `;
 
-const BottomSheetContent = styled.ScrollView`
+const BottomSheetScrollView = styled.ScrollView`
   height: 100%;
 
   background-color: white;
@@ -164,17 +128,6 @@ const BottomSheetContent = styled.ScrollView`
   padding-right: ${SPACING.medium};
   padding-top: ${SPACING.medium};
   padding-bottom: ${SPACING.medium};
-`;
-
-const BalanceContainer = styled.View`
-  background-color: ${COLORS.primaryGray};
-
-  padding-left: ${SPACING.huge};
-  padding-right: ${SPACING.huge};
-  padding-top: ${SPACING.huge};
-  padding-bottom: ${SPACING.huge};
-
-  border-radius: 8;
 `;
 
 const ActionsScrollView = styled.ScrollView`
@@ -199,7 +152,7 @@ const TouchableActionItem = styled.TouchableOpacity`
 
   margin-right: ${props => (props.isLastItem ? SPACING.huge : SPACING.medium)};
 
-  justify-content: flex-end;
+  align-items: flex-end;
   align-items: center;
 `;
 
@@ -209,10 +162,30 @@ const ActionItemLabel = styled.Text`
 `;
 
 const WelcomeMessageContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
   padding-left: ${SPACING.medium};
   padding-right: ${SPACING.medium};
   padding-top: ${SPACING.medium};
   padding-bottom: ${SPACING.medium};
+`;
+
+const ProfileImageView = styled.View`
+  height: 45;
+  aspect-ratio: 1;
+
+  border-radius: ${45 / 2};
+  background-color: ${COLORS.primaryGray};
+
+  justify-content: center;
+  align-items: center;
+`;
+
+const ProfileLetterText = styled.Text`
+  font-size: 14;
+  font-weight: 200;
 `;
 
 const WelcomeMessageText = styled.Text`
